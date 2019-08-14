@@ -1,0 +1,16 @@
+﻿@using MovieAPI.OmdbApi
+
+@model List<OmdbMovie>
+
+@{
+    ViewData["Title"] = "SearchMovie";
+}
+
+<h1>SearchMovie</h1>
+
+    @foreach (var movie in @Model)
+    {
+        <p><img src="@movie.Poster" height="100" /></p>
+        <p><b>@movie.Title</b> [@movie.Year] [@movie.Type] <a href="https://imdb.com/title/@movie.ImdbId">imdb.com</a></p>
+    }
+
