@@ -6,11 +6,19 @@
     ViewData["Title"] = "SearchMovie";
 }
 
-<h1>SearchMovie</h1>
+    <h1>Search Movie Results for "@ViewBag.SearchString"</h1>
 
-    @foreach (var movie in @Model)
-    {
-        <p><img src="@movie.Poster" height="100" /></p>
-        <p><b>@movie.Title</b> [@movie.Year] [@movie.Type] <a href="https://imdb.com/title/@movie.ImdbId">imdb.com</a></p>
-    }
+@foreach (var movie in @Model)
+{
+    <div class="media" >
+        <img src="@movie.Poster" class="align-self-center mr-2" height="100" />
+        <div class="media-body">
+            <h5 class="mt-lg-1">@movie.Title [@movie.Year]</h5>
+      
+            [<a href="/Home/GetMovieDetails?ImdbId=@movie.ImdbId">Details</a>]
+            [<a href="/Home/ToggleMovieFavorite?ImdbId=@movie.ImdbId">Add To Favorites</a>]
+        </div>
+    </div>
+
+}
 

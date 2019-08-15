@@ -21,7 +21,7 @@ namespace MovieAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchMovieApi(string title, string year)
         {
-            
+            ViewBag.SearchString = title;
             if (!String.IsNullOrEmpty(title))
             {
                 var omdbApi = new OmdbApi.OmdbApi();
@@ -33,12 +33,21 @@ namespace MovieAPI.Controllers
 
         }
 
+ 
         public async Task<IActionResult> GetMovieDetails(string imdbId)
         {
             var omdbApi = new OmdbApi.OmdbApi();
 
             return View(await omdbApi.GetMovieDetails(imdbId));
 
+        }
+
+        public async Task<IActionResult> ToggleMovieFavorite(string imdbId)
+        {
+
+            //call method to update database here
+
+            return View("Index");
         }
 
 

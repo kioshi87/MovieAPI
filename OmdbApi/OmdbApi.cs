@@ -49,13 +49,12 @@ namespace MovieAPI.OmdbApi
 
         public async Task<OmdbMovie> GetMovieDetails(string imdbId)
         {
-            //var omdbMovie = new OmdbMovie();
+
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://www.omdbapi.com");
             var response = await client.GetAsync($"?apikey={_apiKey}&i={imdbId}");
             var content = await response.Content.ReadAsStringAsync();
             var omdbMovie = JsonConvert.DeserializeObject<OmdbMovie>(content);
-            //var movieList = searchResults.Search.ToList();
 
             return omdbMovie;
         }

@@ -15,6 +15,9 @@ namespace MovieAPI.OmdbApi
         public string Released { get; set; }
         public string Genre { get; set; }
         public string Plot { get; set; }
+        public string Director { get; set; }
+        public string Metascore { get; set; }
+        public string ImdbRating { get; set; } 
 
 
     }
