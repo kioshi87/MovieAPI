@@ -11,9 +11,14 @@ namespace MovieAPI.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
+            var moviedbapi = new MovieDbApiClient.MovieDbApiClient();
+
+            var popularList = await moviedbapi.GetPopularMovies();
+
+            ViewBag.PopularMovieList = popularList;
 
             return View();
         }
@@ -23,8 +28,11 @@ namespace MovieAPI.Controllers
         {
             ViewBag.SearchString = title;
             var moviedbapi = new MovieDbApiClient.MovieDbApiClient();
+
+
             return View(await moviedbapi.SearchMovieApi(title));
 
+            
 
             
             //if (!String.IsNullOrEmpty(title))

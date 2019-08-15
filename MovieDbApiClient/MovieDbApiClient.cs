@@ -45,5 +45,17 @@ namespace MovieAPI.MovieDbApiClient
 
             return movieList;
         }
+
+        public async Task<List<MovieDbApiMovie>> GetPopularMovies()
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://api.themoviedb.org");
+            var response = await client.GetAsync($"3/movie/popular?api_key={_apiKey}&language=en-US&page=1&include_adult=false");
+            var content = await response.Content.ReadAsStringAsync();
+            var searchResults = JsonConvert.DeserializeObject<MovieDbApiSearch>(content);
+            var movieList = searchResults.Results.ToList();
+
+            return movieList;
+        }
     }
 }

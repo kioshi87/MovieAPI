@@ -19,4 +19,20 @@
             <button type="submit">Get Movie Details</button>
         </form>
 
+        <div>
+            <h2>Today's Top Movies</h2>
+
+            @foreach (var movie in @ViewBag.PopularMovieList)
+            {
+                <a href="/Home/GetMovieDetails?movieId=@movie.Id">
+                    <img src="https://image.tmdb.org/t/p/h100/@movie.Poster_Path" class="align-self-center mr-2" alt="@movie.Title" />
+                </a>
+            }
+        </div>        
+        <div>
+            <a href="https://www.themoviedb.org/">
+                <img src="https://www.themoviedb.org/assets/2/v4/logos/408x161-powered-by-rectangle-blue-10d3d41d2a0af9ebcb85f7fb62ffb6671c15ae8ea9bc82a2c6941f223143409e.png" height="40" />
+            </a>
+        </div>
     </div>
+
