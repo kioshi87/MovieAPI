@@ -39,10 +39,10 @@ namespace MovieAPI.Controllers
         }
 
  
-        public async Task<IActionResult> GetMovieDetails(string id)
+        public async Task<IActionResult> GetMovieDetails(string movieId)
         {
             var moviedbapi = new MovieDbApiClient.MovieDbApiClient();
-            return View(await moviedbapi.GetMovieDetails(id));
+            return View(await moviedbapi.GetMovieDetails(movieId));
 
             //var omdbApiClient = new OmdbApi.OmdbApiClient();
 
@@ -50,12 +50,21 @@ namespace MovieAPI.Controllers
 
         }
 
-        public async Task<IActionResult> ToggleMovieFavorite(string id)
+        public async Task<IActionResult> ToggleMovieFavorite(string movieId)
         {
 
             //call method to update database here
 
             return View("Index");
+        }
+
+        public async Task<IActionResult> GetMovieRecommendations(string movieId)
+        {
+            var moviedbapi = new MovieDbApiClient.MovieDbApiClient();
+
+            var results = await moviedbapi.GetMovieRecommendations(movieId);
+
+            return View("SearchMovieApi", results);
         }
 
 

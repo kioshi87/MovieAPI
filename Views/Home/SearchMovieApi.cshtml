@@ -15,8 +15,9 @@
         <div class="media-body">
             <h5 class="mt-lg-1">@movie.Title [@movie.Release_Date]</h5>
       
-            [<a href="/Home/GetMovieDetails?Id=@movie.Id">Details</a>]
-            [<a href="/Home/ToggleMovieFavorite?ImdbId=@movie.Id">Add To Favorites</a>]
+            [<a href="/Home/GetMovieDetails?movieId=@movie.Id">Details</a>]
+            [<a href="/Home/ToggleMovieFavorite?movieId=@movie.Id">Add To Favorites</a>]
+            [<a href="/Home/GetMovieRecommendations?movieId=@movie.Id">Get Recommendations</a>]
         </div>
     </div>
 
