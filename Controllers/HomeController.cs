@@ -24,8 +24,8 @@ namespace MovieAPI.Controllers
             ViewBag.SearchString = title;
             if (!String.IsNullOrEmpty(title))
             {
-                var omdbApi = new OmdbApi.OmdbApi();
-                return View(await omdbApi.SearchMovie(title, year));
+                var omdbApiClient = new OmdbApi.OmdbApiClient();
+                return View(await omdbApiClient.SearchMovie(title, year));
             }
 
             return RedirectToAction("Index","Home");
@@ -36,9 +36,9 @@ namespace MovieAPI.Controllers
  
         public async Task<IActionResult> GetMovieDetails(string imdbId)
         {
-            var omdbApi = new OmdbApi.OmdbApi();
+            var omdbApiClient = new OmdbApi.OmdbApiClient();
 
-            return View(await omdbApi.GetMovieDetails(imdbId));
+            return View(await omdbApiClient.GetMovieDetails(imdbId));
 
         }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MovieAPI.OmdbApi
 {
-    public class OmdbApi
+    public class OmdbApiClient
     {
         //private readonly IHttpClientFactory _httpClientFactory;
         //private readonly HttpClient _client;
