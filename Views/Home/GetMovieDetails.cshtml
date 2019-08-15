@@ -1,23 +1,20 @@
-﻿@using MovieAPI.OmdbApi
+﻿@using MovieAPI.MovieDbApiClient
 
-@model OmdbMovie
+@model MovieDbApiMovie
 
 @{
     ViewData["Title"] = "GetMovieDetails";
 }
 
-<h1>@Model.Title</h1>
+
 
 <div class="media">
-    <img src="@Model.Poster" class="mr-4"/>
+    <img src="https://image.tmdb.org/t/p/w500/@Model.Poster_Path" class="mr-4"/>
     <div class="media-body">
-        
-        <p>Plot: @Model.Plot</p>
-        <p>Date Released: @Model.Released</p>
-        <p>Director: @Model.Director</p>
-        <p>Metascore: @Model.Metascore</p>
-        <p>IMDB Rating: @Model.ImdbRating</p>
-        <p><a href="https://imdb.com/title/@Model.ImdbId">imdb.com</a></p>
-        <p><a href="/Home/ToggleMovieFavorite?ImdbId=@Model.ImdbId">Add To Favorites</a></p>
+        <h1>@Model.Title</h1>
+        <p>@Model.Overview</p>
+        <p>Date Released: @Model.Release_Date</p>
+        <p><a href="https://imdb.com/title/@Model.Imdb_Id">imdb.com</a></p>
+        <p><a href="/Home/ToggleMovieFavorite?ImdbId=@Model.Id">Add To Favorites</a></p>
     </div>
 </div>

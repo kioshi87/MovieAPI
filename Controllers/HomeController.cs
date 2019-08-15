@@ -22,27 +22,35 @@ namespace MovieAPI.Controllers
         public async Task<IActionResult> SearchMovieApi(string title, string year)
         {
             ViewBag.SearchString = title;
-            if (!String.IsNullOrEmpty(title))
-            {
-                var omdbApiClient = new OmdbApi.OmdbApiClient();
-                return View(await omdbApiClient.SearchMovie(title, year));
-            }
+            var moviedbapi = new MovieDbApiClient.MovieDbApiClient();
+            return View(await moviedbapi.SearchMovieApi(title));
 
-            return RedirectToAction("Index","Home");
+
+            
+            //if (!String.IsNullOrEmpty(title))
+            //{
+            //    var omdbApiClient = new OmdbApi.OmdbApiClient();
+            //    return View(await omdbApiClient.SearchMovie(title, year));
+            //}
+
+            //return RedirectToAction("Index","Home");
             // add error handling in case no results
 
         }
 
  
-        public async Task<IActionResult> GetMovieDetails(string imdbId)
+        public async Task<IActionResult> GetMovieDetails(string id)
         {
-            var omdbApiClient = new OmdbApi.OmdbApiClient();
+            var moviedbapi = new MovieDbApiClient.MovieDbApiClient();
+            return View(await moviedbapi.GetMovieDetails(id));
 
-            return View(await omdbApiClient.GetMovieDetails(imdbId));
+            //var omdbApiClient = new OmdbApi.OmdbApiClient();
+
+            //return View(await omdbApiClient.GetMovieDetails(imdbId));
 
         }
 
-        public async Task<IActionResult> ToggleMovieFavorite(string imdbId)
+        public async Task<IActionResult> ToggleMovieFavorite(string id)
         {
 
             //call method to update database here
