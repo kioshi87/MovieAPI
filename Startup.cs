@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MovieAPI.Data;
 
 namespace MovieAPI
 {
@@ -34,6 +36,9 @@ namespace MovieAPI
             services.AddDistributedMemoryCache();
             services.AddHttpContextAccessor();
             services.AddHttpClient();
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=MovieApi;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<UserMovieContext>
+                (options => options.UseSqlServer(connection));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

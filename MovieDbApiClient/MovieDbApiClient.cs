@@ -9,6 +9,7 @@ namespace MovieAPI.MovieDbApiClient
 {
     public class MovieDbApiClient
     {
+
         private readonly string _apiKey = "8dd6dc39ce15c95dadbc91a91895d078";
 
         public async Task<List<MovieDbApiMovie>> SearchMovieApi(string query)
