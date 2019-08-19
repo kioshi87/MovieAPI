@@ -6,6 +6,8 @@
 
 <h1>SelectUser</h1>
 
+<a class="nav-link" asp-area="" asp-controller="Users" asp-action="Create">Create New User</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -29,9 +31,11 @@
                     @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
                 <td>
-                    <a asp-action="SetCurrentUser" asp-route-id="@item.Id">Select User</a> 
+                    <a asp-action="SetCurrentUser" asp-route-id="@item.Id">Select User</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+    
