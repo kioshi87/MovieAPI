@@ -59,7 +59,7 @@ namespace MovieAPI.MovieDbApiClient
             return movieList;
         }
 
-        public async Task<List<MovieDbApiMovie>> GetUsersMovies(List<string> movieIdList)
+        public async Task<List<MovieDbApiMovie>> GetUsersMovies(List<int> movieIdList)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri("https://api.themoviedb.org");

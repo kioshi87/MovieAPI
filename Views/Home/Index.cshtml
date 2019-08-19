@@ -24,6 +24,16 @@
 
         <p></p>
 
+        @if (ViewBag.UsersFavorites != null)
+        {
+            
+            
+            @foreach (var fav in ViewBag.UsersFavorites)
+            {
+                <img src="https://image.tmdb.org/t/p/h100/@fav.Poster_Path" class="align-self-center mr-2" />
+            }
+        }
+
 
         <div>
             <h2>Today's Top Movies</h2>

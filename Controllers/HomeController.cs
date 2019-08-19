@@ -31,14 +31,17 @@ namespace MovieAPI.Controllers
             var popularList = await moviedbapi.GetPopularMovies();
             ViewBag.PopularMovieList = popularList;
 
-            //if (_session.GetInt32("currentUserId") != null)
-            //{
-            //    var userId = (int)_session.GetInt32("currentUserId");
-            //    await moviedbapi.GetUsersMovies(movieIdList);
+            if (_session.GetInt32("currentUserId") != null)
+            {
+                var userId = (int)_session.GetInt32("currentUserId");
+                var movieIdList = _context.UserMovie.Where(_ => _.UserId == userId)
+                    .Select(m => m.MovieDbApiId).ToList();
 
-            //}
+                ViewBag.UsersFavorites = await moviedbapi.GetUsersMovies(movieIdList);
 
-     
+            }
+
+
             return View();
         }
 
