@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MovieAPI.Data;
 
 namespace MovieAPI
 {
@@ -30,10 +32,19 @@ namespace MovieAPI
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddSession();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".grandCircus_capstone";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddDistributedMemoryCache();
             services.AddHttpContextAccessor();
             services.AddHttpClient();
+
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=MovieApiDb;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<UserMovieDbContext>
+                (options => options.UseSqlServer(connection));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

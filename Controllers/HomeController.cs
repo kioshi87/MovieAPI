@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MovieAPI.Data;
 using MovieAPI.Models;
 using MovieAPI.OmdbApi;
 
@@ -11,13 +14,21 @@ namespace MovieAPI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ISession _session;
+        private readonly UserMovieDbContext _context;
+
+        public HomeController(UserMovieDbContext context, IHttpContextAccessor httpContextAccessor)
+        {
+            _session = httpContextAccessor.HttpContext.Session;
+            _context = context;
+        }
+
+
         public async Task<IActionResult> Index()
         {
 
             var moviedbapi = new MovieDbApiClient.MovieDbApiClient();
-
             var popularList = await moviedbapi.GetPopularMovies();
-
             ViewBag.PopularMovieList = popularList;
 
             return View();
@@ -58,12 +69,18 @@ namespace MovieAPI.Controllers
 
         }
 
-        public async Task<IActionResult> ToggleMovieFavorite(string movieId)
-        {
+        public async Task<IActionResult> ToggleMovieFavorite([Bind("Id,UserId,MovieDbApiId")] UserMovie userMovie)
+        {          
 
-            //call method to update database here
+            if (_session.GetInt32("currentUserId") != null)
+            {
+                userMovie.UserId = (int)_session.GetInt32("currentUserId");
+                _context.Add(userMovie);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> GetMovieRecommendations(string movieId)
@@ -85,6 +102,22 @@ namespace MovieAPI.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public async Task<IActionResult> SelectUser()
+        {
+
+            return View(await _context.User.ToListAsync());
+        }
+
+        public async Task<IActionResult> SetCurrentUser(int id)
+        {
+            var user = await _context.User
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            _session.SetInt32("currentUserId", user.Id);
+            _session.SetString("currentUserFirstName", user.FirstName); 
+
+            return RedirectToAction("Index");
         }
     }
 }

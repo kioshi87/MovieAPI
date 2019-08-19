@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MovieAPI.Models.User>
+@{
+    ViewData["Title"] = "SelectUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>SelectUser</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    <a asp-action="SelectUser" asp-route-id="@item.Id">Select User</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

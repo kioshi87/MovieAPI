@@ -14,9 +14,10 @@
         <img src="https://image.tmdb.org/t/p/h100/@movie.Poster_Path" class="align-self-center mr-2" />
         <div class="media-body">
             <h5 class="mt-lg-1">@movie.Title [@movie.Release_Date]</h5>
-      
+
             [<a href="/Home/GetMovieDetails?movieId=@movie.Id">Details</a>]
-            [<a href="/Home/ToggleMovieFavorite?movieId=@movie.Id">Add To Favorites</a>]
+            [<a href="/Home/ToggleMovieFavorite?movieDbApiId=@movie.Id">Add To Favorites</a>]
+            @*[@Html.ActionLink("Add To Favorites", "ToggleMovieFavorite", "Home")]*@
             [<a href="/Home/GetMovieRecommendations?movieId=@movie.Id">Get Recommendations</a>]
         </div>
     </div>
