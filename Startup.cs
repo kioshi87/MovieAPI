@@ -41,6 +41,9 @@ namespace MovieAPI
             services.AddDistributedMemoryCache();
             services.AddHttpContextAccessor();
             services.AddHttpClient();
+            //var connection = @"Server=(localdb)\mssqllocaldb;Database=MovieApi;Trusted_Connection=True;ConnectRetryCount=0";
+            //services.AddDbContext<UserMovieContext>
+            //    (options => options.UseSqlServer(connection));
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=MovieApiDb;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<UserMovieDbContext>
@@ -67,6 +70,7 @@ namespace MovieAPI
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
