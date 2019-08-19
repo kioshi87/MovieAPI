@@ -58,5 +58,24 @@ namespace MovieAPI.MovieDbApiClient
 
             return movieList;
         }
+
+        public async Task<List<MovieDbApiMovie>> GetUsersMovies(List<string> movieIdList)
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://api.themoviedb.org");
+
+            var movieList = new List<MovieDbApiMovie>();
+
+            foreach (var movieId in movieIdList)
+            {
+                var response = await client.GetAsync($"/3/movie/{movieId}?api_key={_apiKey}");
+                var content = await response.Content.ReadAsStringAsync();
+                var omdbMovie = JsonConvert.DeserializeObject<MovieDbApiMovie>(content);
+                movieList.Add(omdbMovie);
+            }
+            
+            return movieList;
+
+        }
     }
 }
